@@ -45,7 +45,7 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">O nás</a></li>
                     <li class="nav-item"><a class="nav-link {% if request.path == '/historie/' %}active{% endif %}" href="{% url 'historie' %}">Historie</a></li>
-                    <li class="nav-item"><a class="nav-link {% if request.path == '/aktuality/' %}active{% endif %}" href="{% url 'aktuality' %}">Aktuality</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.path == '/aktuality/' %}active{% endif %}" href="{% url 'article_list' %}">Aktuality</a></li>
                     <li class="nav-item"><a class="nav-link {% if request.path == '/areal/' %}active{% endif %}" href="{% url 'areal' %}">Areál</a></li>
                     <li class="nav-item"><a class="nav-link {% if request.path == '/plan/' %}active{% endif %}" href="{% url 'plan' %}">Plán Akcí</a></li>
                     <li class="nav-item"><a class="nav-link {% if request.path == '/probehleakce/' %}active{% endif %}" href="{% url 'probehle_akce' %}">Proběhlé Akce</a></li>
@@ -71,7 +71,7 @@
                 <p class="text-start d-flex flex-column links">
                     <a href="{% url 'index' %}">O nás</a>
                     <a href="{% url 'historie' %}">Historie</a>
-                    <a href="{% url 'aktuality' %}">Aktuality</a>
+                    <a href="{% url 'article_list' %}">Aktuality</a>
                     <a href="{% url 'areal' %}">Areál</a>
                     <a href="{% url 'plan' %}">Plán Akcí</a>
                     <a href="{% url 'probehle_akce' %}">Proběhlé Akce</a>

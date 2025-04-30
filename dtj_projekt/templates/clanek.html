@@ -9,29 +9,33 @@
     <div class="article-wrapper">
         <article>
             <div class="article-header">
-                <h1 class="article-title">Nové hřiště na malou kopanou</h1>
+                <h1 class="article-title">{{ article.title }}</h1>
                 <div class="article-meta">
                     <span class="me-3">
-                        <i class="fas fa-calendar"></i> 14. února 2024
+                        <i class="fas fa-calendar"></i>{{ article.date_created|date:"d.m.Y" }}
                     </span>
                 </div>
             </div>
-
-            <img src="assets/img/IMG_9657.jpg" style="height: 300px; width: auto; max-width: 100%; object-fit: cover;" alt="Hlavní obrázek článku" class="article-image">
-            <img src="assets/img/image3_cut.png" style="height: 300px; width: auto; max-width: 100%; object-fit: cover;" alt="Hlavní obrázek článku" class="article-image">
-
             <div class="article-content">
                 <div class="article-text">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
-                    <p>
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                    </p>
+                    <p>{{ article.content|linebreaks }}</p>
                 </div>
+            </div>
+            {% if images %}
+            <h3 class="mb-3">Fotogalerie</h3>
+            <div class="row">
+                {% for img in images %}
+                <div class="col-md-4 mb-3">
+                    <a href="/{{ img.image }}" data-lightbox="article-gallery">
+                        <img src="/{{ img.image }}" alt="Fotka {{ forloop.counter }}" class="img-fluid rounded">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="mt-4">
+                <a href="{% url 'article_list' %}" class="btn btn-outline-primary">&laquo; Zpět na přehled článků</a>
             </div>
         </article>
     </div>
