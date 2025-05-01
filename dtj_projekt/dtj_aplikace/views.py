@@ -1,10 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import Article
+from .models import Article, Event
 
 #pridat tri nejnovejsi clanky
 def index(request):
-    return render(request, 'index.html')
+    latest_articles = Article.objects.order_by('-date_created')[:3]
+    
+    context = {
+        'latest_articles': latest_articles
+    }
+    
+    return render(request, 'index.html', context)
 
 #nic nemenit
 def historie(request):
@@ -29,6 +35,23 @@ class ArticleDetailView(DetailView):
         context['images'] = self.object.images.all()
         return context
 
+
+class EventListView(ListView):
+    model = Event
+    template_name = 'probehleakce.html'
+    context_object_name = 'events'
+    paginate_by = 4  # 4 akce na stránku
+
+class EventDetailView(DetailView):
+    model = Event
+    template_name = 'akce.html'
+    context_object_name = 'event'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['images'] = self.object.images.all()
+        return context
+
 #staticke
 def areal(request):
     return render(request, 'areal.html')
@@ -36,10 +59,6 @@ def areal(request):
 #vytvorit databazi
 def plan(request):
     return render(request, 'plan.html')
-
-#vytvorit databazi
-def probehle_akce(request):
-    return render(request, 'probehleakce.html')
 
 #vytvorit form
 def kontakt(request):

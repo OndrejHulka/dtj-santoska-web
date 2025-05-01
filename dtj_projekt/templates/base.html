@@ -48,7 +48,7 @@
                     <li class="nav-item"><a class="nav-link {% if request.path == '/aktuality/' %}active{% endif %}" href="{% url 'article_list' %}">Aktuality</a></li>
                     <li class="nav-item"><a class="nav-link {% if request.path == '/areal/' %}active{% endif %}" href="{% url 'areal' %}">Areál</a></li>
                     <li class="nav-item"><a class="nav-link {% if request.path == '/plan/' %}active{% endif %}" href="{% url 'plan' %}">Plán Akcí</a></li>
-                    <li class="nav-item"><a class="nav-link {% if request.path == '/probehleakce/' %}active{% endif %}" href="{% url 'probehle_akce' %}">Proběhlé Akce</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.path == '/probehleakce/' %}active{% endif %}" href="{% url 'event_list' %}">Proběhlé Akce</a></li>
                 </ul>
                 <a href="{% url 'kontakt' %}">
                     <button class="btn btn-primary" type="button" style="font-size: 20px;">
@@ -74,7 +74,7 @@
                     <a href="{% url 'article_list' %}">Aktuality</a>
                     <a href="{% url 'areal' %}">Areál</a>
                     <a href="{% url 'plan' %}">Plán Akcí</a>
-                    <a href="{% url 'probehle_akce' %}">Proběhlé Akce</a>
+                    <a href="{% url 'event_list' %}">Proběhlé Akce</a>
                     <a href="{% url 'kontakt' %}">Kontakt</a>
                 </p>
                 <p class="company-name">DTJ Santoška © {% now "Y" %}</p>

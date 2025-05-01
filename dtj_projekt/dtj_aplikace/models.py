@@ -32,3 +32,35 @@ class ArticleImage(models.Model):
     class Meta:
         verbose_name = "Fotka článku"
         verbose_name_plural = "Fotky článku"
+
+
+class Event(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Titulek")
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+    main_image = models.ImageField(upload_to='static/events/main_images/', verbose_name="Titulní fotka")
+    content = models.TextField(verbose_name="Obsah")
+    date_created = models.DateField(auto_now_add=True, verbose_name="Datum vytvoření")
+    
+    class Meta:
+        ordering = ['-date_created']
+        verbose_name = "Akce"
+        verbose_name_plural = "Akce"
+    
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse('event_detail', kwargs={'slug': self.slug})
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+class EventImage(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='static/events/additional_images/', verbose_name="Fotka")
+    
+    class Meta:
+        verbose_name = "Fotka akce"
+        verbose_name_plural = "Fotky akce"

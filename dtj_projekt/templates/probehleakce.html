@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}DTJ Santoška - Aktuality{% endblock %}
+{% block title %}DTJ Santoška - Proběhlé Akce{% endblock %}
 
 {% block content %}
- <!-- Pridat databazi paginace-->
+ <!-- Pridat databazi -->
 <body style="background: rgb(248, 249, 250);">
     <div class="container py-4 py-xl-5" style="background: transparent;">
         <div class="row mb-5" style="height: 98.4px;">
@@ -14,58 +14,56 @@
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2">
+            {% for event in events %}
             <div class="col">
                 <div class="d-flex flex-column flex-lg-row">
-                    <div class="w-100"><img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/img/IMG_9657.jpg"></div>
+                    <div class="w-100"><img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="/{{ event.main_image }}" alt="{{ event.title }}"></div>
                     <div class="py-4 py-lg-0 px-lg-4">
-                        <h4><strong>Nové hřiště na malou kopanou</strong></h4>
-                        <p>Vážení příznivci malé kopané,&nbsp; rádi bychom Vás informovali, že máme zrekonstruovaný povrch hřiště. Rekonstrukce hřiště byla uskutečněna díky finanční podpoře Nadace ČEZ - Oranžové hřiště a…</p>
-                        <p>Datum: 20.6.2022</p><button class="btn btn-primary" type="button" style="margin-top: 10px;"><strong>Číst více</strong></button>
+                        <h4><strong>{{ event.title }}</strong></h4>
+                        <p>{{ event.content|truncatewords:30 }}</p>
+                        <p>Datum: {{ event.date_created|date:"d.m.Y" }}</p><a class="btn btn-primary" role="button" style="margin-top: 10px;" href="{{ event.get_absolute_url}}"><strong>Číst více</strong></a>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="d-flex flex-column flex-lg-row">
-                    <div class="w-100"><img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/img/Nohejbal_Chabařovice_2.jpeg" width="174" height="200"></div>
-                    <div class="py-4 py-lg-0 px-lg-4">
-                        <h4><strong>Velká cena Prahy 2020</strong></h4>
-                        <p><span style="color: rgb(51, 51, 51);">V pondělí 15. 6. 2020 se naši nohejbalisté zúčastnili turnaje pořádaného hlavním městem Praha. Ve velké konkurenci se jim podařilo získat krásné druhé místo. Gratulujeme a přejeme hodně dalších úspěchů.</span></p>
-                        <p>Datum: 20.5.2022</p><button class="btn btn-primary" type="button" style="margin-top: 10px;"><strong>Číst více</strong></button>
-                    </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>Žádné akce k zobrazení.</p>
                 </div>
-            </div>
-            <div class="col">
-                <div class="d-flex flex-column flex-lg-row">
-                    <div class="w-100"><img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/img/IMG_9657.jpg"></div>
-                    <div class="py-4 py-lg-0 px-lg-4">
-                        <h4><strong>Lorem libero donec</strong></h4>
-                        <p>Vážení příznivci malé kopané,&nbsp; rádi bychom Vás informovali, že máme zrekonstruovaný povrch hřiště. Rekonstrukce hřiště byla uskutečněna díky finanční podpoře Nadace ČEZ - Oranžové hřiště a…</p>
-                        <p>Datum: 20.6.2022</p><button class="btn btn-primary" type="button"><strong>Číst více</strong></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="d-flex flex-column flex-lg-row">
-                    <div class="w-100"><img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"></div>
-                    <div class="py-4 py-lg-0 px-lg-4">
-                        <h4><strong>Lorem libero donec</strong></h4>
-                        <p><span style="color: rgb(51, 51, 51);">V pondělí 15. 6. 2020 se naši nohejbalisté zúčastnili turnaje pořádaného hlavním městem Praha. Ve velké konkurenci se jim podařilo získat krásné druhé místo. Gratulujeme a přejeme hodně dalších úspěchů.</span></p>
-                        <p>Datum: 20.3.2017</p><button class="btn btn-primary" type="button"><strong>Číst více</strong></button>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        <nav class="d-flex justify-content-center" style="padding-top: 16px;">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
-            </ul>
-        </nav>
-    </div>
+        {% if is_paginated %}
+    <nav aria-label="Stránkování článků" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="První">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Poslední">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
 </body>
 {% endblock %}
