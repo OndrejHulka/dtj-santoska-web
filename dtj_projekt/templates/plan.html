@@ -1,40 +1,81 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}DTJ Santoška - Plán akcí{% endblock %}
 
 {% block content %}
-<!-- pridat databazi -->
+{% get_current_language as LANGUAGE_CODE %}
 <body style="background: rgb(248,249,250);">
-    <h1 class="text-center" style="margin: 0px;margin-top: 30px;margin-bottom: 30px;"><strong>Plán Akcí</strong></h1><div class="schedule-wrapper">
-        <div class="event-card">
-            <div class="row g-0 align-items-center">
-                <div class="col-auto">
-                    <div class="date-box">
-                        <div class="date-number">14</div>
-                        <div class="date-month">Února</div>
+    <h1 class="text-center" style="margin: 0px;margin-top: 30px;margin-bottom: 30px;"><strong>Plán Akcí</strong></h1>
+    
+    <div class="schedule-wrapper">
+        {% if plans %}
+            {% for plan in plans %} 
+                <div class="event-card">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-auto">
+                            <div class="date-box">
+                                <div class="date-number">{{ plan.day|date:"d" }}</div>
+                                <div class="date-month">
+                                    {% with month=plan.day|date:"F" %}
+                                        {% if month == "January" %}LEDEN
+                                        {% elif month == "February" %}ÚNOR
+                                        {% elif month == "March" %}BŘEZEN
+                                        {% elif month == "April" %}DUBEN
+                                        {% elif month == "May" %}KVĚTEN
+                                        {% elif month == "June" %}ČERVEN
+                                        {% elif month == "July" %}ČERVENEC
+                                        {% elif month == "August" %}SRPEN
+                                        {% elif month == "September" %}ZÁŘÍ
+                                        {% elif month == "October" %}ŘÍJEN
+                                        {% elif month == "November" %}LISTOPAD
+                                        {% elif month == "December" %}PROSINEC
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="event-info">
+                                <h3 class="event-title">{{ plan.title }}</h3>
+                                <div class="event-details">
+                                    <span class="me-3">
+                                        <i class="fas fa-calendar"></i> 
+                                        {% with day=plan.day|date:"l" %}
+                                            {% if day == "Monday" %}Pondělí
+                                            {% elif day == "Tuesday" %}Úterý
+                                            {% elif day == "Wednesday" %}Středa
+                                            {% elif day == "Thursday" %}Čtvrtek
+                                            {% elif day == "Friday" %}Pátek
+                                            {% elif day == "Saturday" %}Sobota
+                                            {% elif day == "Sunday" %}Neděle
+                                            {% endif %}
+                                        {% endwith %}
+                                    </span>
+                                    <span class="me-3">
+                                        <i class="fas fa-clock"></i> {{ plan.start_time|time:"H:i" }} - {{ plan.end_time|time:"H:i" }}
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-map-marker-alt"></i> {{ plan.location }}
+                                    </span>
+                                </div>
+                                {% if plan.description %}
+                                <div class="event-description">
+                                    {{ plan.description }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="event-info">
-                        <h3 class="event-title">Název události</h3>
-                        <div class="event-details">
-                            <span class="me-3">
-                                <i class="fas fa-calendar"></i> Pondělí
-                            </span>
-                            <span class="me-3">
-                                <i class="fas fa-clock"></i> 18:00 - 22:00
-                            </span>
-                            <span>
-                                <i class="fas fa-map-marker-alt"></i> Lokace
-                            </span>
-                        </div>
-                        <div class="event-description">
-                            Popis události zde...
-                        </div>
-                    </div>
-                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info text-center">
+                <p>V současné době nejsou naplánovány žádné akce.</p>
+                <p>Sledujte tuto stránku pro budoucí události.</p>
             </div>
-        </div>
+        {% endif %}
+    </div>
 </body>
 {% endblock %}

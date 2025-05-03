@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import Article, Event
+from .models import Article, Event, Plan
 
 #pridat tri nejnovejsi clanky
 def index(request):
@@ -56,9 +56,10 @@ class EventDetailView(DetailView):
 def areal(request):
     return render(request, 'areal.html')
 
-#vytvorit databazi
-def plan(request):
-    return render(request, 'plan.html')
+class PlanListView(ListView):
+    model = Plan
+    template_name = 'plan.html'
+    context_object_name = 'plans'
 
 #vytvorit form
 def kontakt(request):

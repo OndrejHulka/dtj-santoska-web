@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils import timezone
 
 class Article(models.Model):
     title = models.CharField(max_length=200, verbose_name="Titulek")
@@ -64,3 +65,22 @@ class EventImage(models.Model):
     class Meta:
         verbose_name = "Fotka akce"
         verbose_name_plural = "Fotky akce"
+
+class Plan(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Název události")
+    description = models.TextField(verbose_name="Popis události", blank=True)
+    day = models.DateField(verbose_name="Den")
+    start_time = models.TimeField(verbose_name="Čas začátku")
+    end_time = models.TimeField(verbose_name="Čas konce")
+    location = models.CharField(max_length=255, verbose_name="Lokace")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        day_name = self.day.strftime("%A").lower()  # Get day name in lowercase
+        return f"{self.title} - {day_name} {self.start_time.strftime('%H:%M')} - {self.end_time.strftime('%H:%M')}"
+    
+    class Meta:
+        verbose_name = "Plánn"
+        verbose_name_plural = "Plán"
+        ordering = ['day', 'start_time']

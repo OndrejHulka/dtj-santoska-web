@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, ArticleImage, Event, EventImage
+from .models import Article, ArticleImage, Event, EventImage, Plan
 
 # Admin pro články
 class ArticleImageInline(admin.TabularInline):
@@ -30,3 +30,10 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ('date_created',)
     date_hierarchy = 'date_created'
     inlines = [EventImageInline]
+
+#admin pro Plan
+@admin.register(Plan)
+class PlanAdmin(admin.ModelAdmin):
+    list_display = ('title', 'day', 'start_time', 'end_time', 'location')
+    list_filter = ('day',)
+    search_fields = ('title', 'location', 'description')
