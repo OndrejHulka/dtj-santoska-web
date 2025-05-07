@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, ArticleImage, Event, EventImage, Plan
+from .models import Article, ArticleImage, Event, EventImage, Plan, KontaktniZprava
 
 # Admin pro články
 class ArticleImageInline(admin.TabularInline):
@@ -37,3 +37,14 @@ class PlanAdmin(admin.ModelAdmin):
     list_display = ('title', 'day', 'start_time', 'end_time', 'location')
     list_filter = ('day',)
     search_fields = ('title', 'location', 'description')
+
+@admin.register(KontaktniZprava)
+class KontaktniZpravaAdmin(admin.ModelAdmin):
+    list_display = ('jmeno', 'email', 'cas_vytvoreni', 'ip_adresa')
+    list_filter = ('cas_vytvoreni',)
+    search_fields = ('jmeno', 'email', 'zprava')
+    readonly_fields = ('cas_vytvoreni', 'ip_adresa')
+    
+    def has_change_permission(self, request, obj=None):
+        # Zamezit úpravám zpráv (jen čtení)
+        return False

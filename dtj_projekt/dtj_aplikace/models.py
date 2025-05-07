@@ -84,3 +84,17 @@ class Plan(models.Model):
         verbose_name = "Plánn"
         verbose_name_plural = "Plán"
         ordering = ['day', 'start_time']
+
+class KontaktniZprava(models.Model):
+    jmeno = models.CharField(max_length=100, verbose_name='Jméno')
+    email = models.EmailField(verbose_name='Email')
+    zprava = models.TextField(verbose_name='Zpráva')
+    cas_vytvoreni = models.DateTimeField(default=timezone.now, verbose_name='Čas vytvoření')
+    ip_adresa = models.GenericIPAddressField(blank=True, null=True, verbose_name='IP adresa')
+    
+    class Meta:
+        verbose_name = 'Kontaktní zpráva'
+        verbose_name_plural = 'Kontaktní zprávy'
+    
+    def __str__(self):
+        return f"Zpráva od {self.jmeno} ({self.email}) - {self.cas_vytvoreni.strftime('%d.%m.%Y %H:%M')}"

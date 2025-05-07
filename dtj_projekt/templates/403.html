@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Přístup odepřen{% endblock %}
+
+{% block content %}
+<body style="background: rgb(248,249,250);">
+<div class="error-page">
+    <h1>403 - Přístup odepřen</h1>
+    <p>Nemáte oprávnění k přístupu na tuto stránku.</p>
+    <p>Pokud si myslíte, že by vám měl být umožněn přístup, kontaktujte prosím administrátora.</p>
+    <p>Můžete se vrátit na <a href="{% url 'index' %}">úvodní stránku</a>.</p>
+</div>
+</body>
+<style>
+.error-page {
+    text-align: center;
+    padding: 50px;
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.error-page h1 {
+    font-size: 3rem;
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.error-page p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.error-page a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.error-page a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}

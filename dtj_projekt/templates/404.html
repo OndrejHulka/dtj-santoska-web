@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Stránka nenalezena{% endblock %}
+
+{% block content %}
+<body style="background: rgb(248,249,250);">
+<div class="error-page">
+    <h1>404 - Stránka nenalezena</h1>
+    <p>Omlouváme se, ale stránka, kterou hledáte, neexistuje.</p>
+    <p>Zkontrolujte, zda jste zadali správnou URL adresu, nebo se vraťte na <a href="{% url 'index' %}">úvodní stránku</a>.</p>
+</div>
+</body>
+<style>
+    .error-page {
+    text-align: center;
+    padding: 50px;
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.error-page h1 {
+    font-size: 3rem;
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.error-page p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.error-page a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.error-page a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}
