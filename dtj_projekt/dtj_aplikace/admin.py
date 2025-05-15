@@ -34,9 +34,15 @@ class EventAdmin(admin.ModelAdmin):
 #admin pro Plan
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ('title', 'day', 'start_time', 'end_time', 'location')
+    list_display = ('title', 'day', 'start_time', 'end_time', 'location', 'has_pdf')
     list_filter = ('day',)
-    search_fields = ('title', 'location', 'description')
+    search_fields = ('title', 'description', 'location')
+    date_hierarchy = 'day'
+    
+    def has_pdf(self, obj):
+        return bool(obj.pdf_file)
+    has_pdf.boolean = True
+    has_pdf.short_description = "PDF"
 
 @admin.register(KontaktniZprava)
 class KontaktniZpravaAdmin(admin.ModelAdmin):

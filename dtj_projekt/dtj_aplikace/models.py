@@ -2,13 +2,15 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils import timezone
+import datetime
+from django.core.validators import FileExtensionValidator
 
 class Article(models.Model):
     title = models.CharField(max_length=200, verbose_name="Titulek")
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     main_image = models.ImageField(upload_to='static/articles/main_images/', verbose_name="Titulní fotka")
     content = models.TextField(verbose_name="Obsah")
-    date_created = models.DateField(auto_now_add=True, verbose_name="Datum vytvoření")
+    date_created = models.DateField(default=datetime.date.today, verbose_name="Datum vytvoření")
     
     class Meta:
         ordering = ['-date_created']
@@ -40,7 +42,7 @@ class Event(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     main_image = models.ImageField(upload_to='static/events/main_images/', verbose_name="Titulní fotka")
     content = models.TextField(verbose_name="Obsah")
-    date_created = models.DateField(auto_now_add=True, verbose_name="Datum vytvoření")
+    date_created = models.DateField(default=datetime.date.today, verbose_name="Datum vytvoření")
     
     class Meta:
         ordering = ['-date_created']
@@ -73,6 +75,13 @@ class Plan(models.Model):
     start_time = models.TimeField(verbose_name="Čas začátku")
     end_time = models.TimeField(verbose_name="Čas konce")
     location = models.CharField(max_length=255, verbose_name="Lokace")
+    pdf_file = models.FileField(
+        upload_to='static/plans/pdfs/', 
+        verbose_name="PDF soubor", 
+        blank=True, 
+        null=True,
+        validators=[FileExtensionValidator(['pdf'])]
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -81,7 +90,7 @@ class Plan(models.Model):
         return f"{self.title} - {day_name} {self.start_time.strftime('%H:%M')} - {self.end_time.strftime('%H:%M')}"
     
     class Meta:
-        verbose_name = "Plánn"
+        verbose_name = "Plán"
         verbose_name_plural = "Plán"
         ordering = ['day', 'start_time']
 

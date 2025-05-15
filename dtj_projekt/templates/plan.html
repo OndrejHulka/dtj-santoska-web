@@ -65,6 +65,15 @@
                                     {{ plan.description }}
                                 </div>
                                 {% endif %}
+                                
+                                <!-- Tlačítko pro stažení PDF souboru -->
+                                {% if plan.pdf_file %}
+                                <div class="mt-2">
+                                    <a href="{{ plan.pdf_file.url }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                        <i class="fas fa-file-pdf"></i> Stáhnout PDF
+                                    </a>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
