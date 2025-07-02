@@ -1,6 +1,6 @@
 # 🏟️ DTJ Santoška – Sports Facility Website
 
-This is a fully responsive website for the DTJ Santoška sports complex in Prague. It provides visitors with information about the facility, its events, history, and current announcements. The site includes a Django-based backend with an admin interface for content management.
+I created website for the DTJ Santoška sports complex in Prague. It provides visitors with information about the facility, its events, history, and current announcements. The site includes a Django-based backend with an admin interface for content management.
 
 🌐 **Live Website**: [https://dtjsantoska.cz/](https://dtjsantoska.cz/)
 
