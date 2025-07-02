@@ -46,11 +46,3 @@ This is a fully responsive website for the DTJ Santoška sports complex in Pragu
 - Nginx (reverse proxy and static/media file serving)
 
 ---
-
-## 🚀 Deployment Notes
-
-The project is deployed on a self-managed VPS using Nginx as a reverse proxy and Gunicorn to serve the Django app. Static and media files are handled via Nginx configuration.
-
-Typical stack setup:
-```plaintext
-Client --> Nginx --> Gunicorn --> Django --> PostgreSQL
