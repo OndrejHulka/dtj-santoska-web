@@ -33,7 +33,7 @@ This is a fully responsive website for the DTJ Santoška sports complex in Pragu
 
 ### Frontend:
 - HTML5 + CSS3
-- Bootstrap 4
+- Bootstrap 5
 - JavaScript (vanilla)
 
 ### Backend:
@@ -44,5 +44,3 @@ This is a fully responsive website for the DTJ Santoška sports complex in Pragu
 - VPS hosting (Linux)
 - Gunicorn (WSGI application server)
 - Nginx (reverse proxy and static/media file serving)
-
----
