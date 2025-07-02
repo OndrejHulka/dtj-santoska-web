@@ -1,4 +1,4 @@
-# 🏟️ DTJ Santoška – Sports Facility Website
+# Full stack website
 
 I created website for the DTJ Santoška sports complex in Prague. It provides visitors with information about the facility, its events, history, and current announcements. The site includes a Django-based backend with an admin interface for content management.
 
